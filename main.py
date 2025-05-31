@@ -6,12 +6,18 @@ from google import genai
 
 def main():
     if len(sys.argv) < 2:
-        print("ERROR: missing prompt parameter")
+        print("AI Code Assistant")
+        print('\nUsage: python main.py "your prompt here"')
+        print('Example: python main.py "How do I build a calculator app?"')
         sys.exit(1)
+
+    args = sys.argv[1:]
+    print(f"args: {args}")
+    prompt_text = " ".join(args)
+    print(f"prompt text: {prompt_text}")
+
     load_dotenv()
     api_key = os.environ.get("GEMINI_API_KEY")
-
-    prompt_text = sys.argv[1]
 
     client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
