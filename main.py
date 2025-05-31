@@ -15,12 +15,16 @@ def main():
         print('Example: python main.py "How do I build a calculator app?"')
         sys.exit(1)
 
-    user_prompt = sys.argv[1]
+    args = sys.argv[1:]
+
+    if len(sys.argv) > 2 and sys.argv[-1] == "--verbose":
+        verbose = True
+        args = sys.argv[1:-1]
+
+    user_prompt = " ".join(args)
     messages = [
         types.Content(role="user", parts=[types.Part(text=user_prompt)]),
     ]
-    if len(sys.argv) > 2 and sys.argv[2] == "--verbose":
-        verbose = True
 
     if verbose:
         print(f"Working on: {user_prompt}")
