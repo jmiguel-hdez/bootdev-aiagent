@@ -2,6 +2,7 @@ import os
 import sys
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types
 
 
 def main():
@@ -12,9 +13,10 @@ def main():
         sys.exit(1)
 
     args = sys.argv[1:]
-    print(f"args: {args}")
-    prompt_text = " ".join(args)
-    print(f"prompt text: {prompt_text}")
+    user_prompt = " ".join(args)
+    messages = [
+        types.Content(role="user", parts=[types.Part(text=user_prompt)]),
+    ]
 
     load_dotenv()
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -22,7 +24,7 @@ def main():
     client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
         model="gemini-2.0-flash-001",
-        contents=prompt_text,
+        contents=messages,
     )
 
     if response:
