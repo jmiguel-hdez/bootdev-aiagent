@@ -4,7 +4,7 @@ import shlex
 import sys
 
 
-def run_python_file(working_directory, file_path):
+def run_python_file(working_directory, file_path, args=None):
     # if the `file_path` is outside the working directory, return a string with an error
     abs_working_dir = os.path.abspath(working_directory)
     target_path = os.path.abspath(os.path.join(abs_working_dir, file_path))
@@ -27,12 +27,15 @@ def run_python_file(working_directory, file_path):
     # Set the working directory properly
     pyexe = sys.executable
     cmd = shlex.split(f"{pyexe} {target_path}")
+    if args:
+        cmd.extend(args)
     result = ""
     try:
         cmdout = subprocess.run(
             cmd,
             timeout=30,
             check=True,
+            text=True,
             capture_output=True,
             encoding="utf-8",
             cwd=abs_working_dir,

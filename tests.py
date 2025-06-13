@@ -37,13 +37,14 @@ test_run_python = True
 tests_run_python = []
 if test_run_python:
     tests_run_python = [
-        ("calculator", "main.py"),
-        ("calculator", "tests.py"),
+        ("calculator", "main.py", None),
+        ("calculator", "tests.py", None),
         # (this should return an error)
-        ("calculator", "../main.py"),
+        ("calculator", "../main.py", None),
         # (this should return an error)
-        ("calculator", "nonexistent.py"),
-        ("calculator", "nooutput.py"),
+        ("calculator", "nonexistent.py", None),
+        ("calculator", "nooutput.py", None),
+        ("calculator", "echo.py", ["hola"]),
     ]
 
 
@@ -76,9 +77,9 @@ def test():
         result = write_file(workingdir, filename, content)
         print(result)
 
-    for workingdir, filename in tests_run_python:
+    for workingdir, filename, args in tests_run_python:
         print(f"Result for workingdir: {workingdir} filename: {filename}")
-        result = run_python_file(workingdir, filename)
+        result = run_python_file(workingdir, filename, args)
         print(result)
 
 
