@@ -1,6 +1,5 @@
 import os
-
-MAX_CHARS = 10000
+from config import MAX_CHARS
 
 
 def get_file_content(working_directory, file_path):
@@ -18,9 +17,9 @@ def get_file_content(working_directory, file_path):
             file_content_extra = f.read()
             if file_content_extra:
                 file_content_str += (
-                    f'\n[...File "{file_path}" truncated at 10000 characters]\n'
+                    f'\n[...File "{file_path}" truncated at {MAX_CHARS} characters]\n'
                 )
             return file_content_str
 
     except Exception as e:
-        return f"Error: File could not by read with error: {e}"
+        return f'Error: could not read file:"{file_path}" exception: {e}'
