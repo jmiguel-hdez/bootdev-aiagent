@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from config import system_prompt
+from functions.call_function import call_function
 
 
 def main():
@@ -135,9 +136,18 @@ def generate_content(client, messages, verbose=False):
     if not response.function_calls:
         print("Response:")
         print(response.text)
-
-    for function_call_part in response.function_calls:
-        print(f"Calling function: {function_call_part.name}({function_call_part.args})")
+    else:
+        for function_call_part in response.function_calls:
+            # print(f"Calling function: {function_call_part.name}({function_call_part.args})")
+            try:
+                function_call_result = call_function(function_call_part, verbose)
+                function_response = function_call_result.parts[
+                    0
+                ].function_response.response
+                if function_response and verbose:
+                    print(f"-> {function_response}")
+            except Exception as e:
+                raise e
 
 
 if __name__ == "__main__":
