@@ -22,13 +22,26 @@ if test_content:
         ("calculator", "/bin/cat"),
     ]
 
-test_write_file = True
+test_write_file = False
 tests_write_file = []
 if test_write_file:
     tests_write_file = [
         ("calculator", "lorem.txt", "wait, this isn't lorem ipsum"),
         ("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet"),
         ("calculator", "/tmp/temp.txt", "this should not be allowed"),
+    ]
+
+# Update your tests.py file with these test cases, printing each result:
+test_run_python = True
+tests_run_python = []
+if test_run_python:
+    tests_run_python = [
+        ("calculator", "main.py"),
+        ("calculator", "tests.py"),
+        # (this should return an error)
+        ("calculator", "../main.py"),
+        # (this should return an error)
+        ("calculator", "nonexistent.py"),
     ]
 
 
