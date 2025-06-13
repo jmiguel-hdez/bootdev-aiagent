@@ -17,7 +17,8 @@ def run_python_file(working_directory, file_path):
         return f'Error: File "{file_path}" not found.'
 
     # if the file doesn't end with ".py", return an error string:
-    if os.path.splitext(target_path) != ".py":
+    _, ext = os.path.splitext(target_path)
+    if ext != ".py":
         return f'Error: "{file_path}" is not a Python file.'
 
     # Use `subprocess.run` function to execute the Python file.
@@ -36,13 +37,13 @@ def run_python_file(working_directory, file_path):
             encoding="utf-8",
             cwd=abs_working_dir,
         )
-        if not cmdout.stdout and not cmdout.stderr:
+        if len(cmdout.stdout) == 0 and len(cmdout.stderr) == 0:
             return "No output produced"
-        result += f"STDOUT: {cmdout.stdout}\nSTDERR: {cmdout.stderr}"
+        result += f"STDOUT:\n{cmdout.stdout}\nSTDERR:\n{cmdout.stderr}\n"
     except subprocess.CalledProcessError as e:
-        result += f"Process existed with code {e.returncode}"
+        result += f"Process existed with code {e.returncode}\n"
     except Exception as e:
-        result += f"Error: executing Python file: {e}"
+        result += f"Error: executing Python file: {e}\n"
 
     # Format the output to include:
     # The stdout prefixed with "STDOUT:"
@@ -51,3 +52,4 @@ def run_python_file(working_directory, file_path):
     # if no output is produced, return "No output produced"
     # if any exceptions occure during execution, catch them and return an error string.
     # f'Error: executing Python file: {e}'
+    return result

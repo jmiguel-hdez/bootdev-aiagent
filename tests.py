@@ -58,25 +58,25 @@ def test_ipsum_content(
 
 def test():
     for workingdir, directory in tests_get_files_info:
-        print(f"Result for workingdir:{workingdir} directory:{directory}")
+        print(f"Result for workingdir: {workingdir} directory:{directory}")
         result = get_files_info(workingdir, directory)
         print(result)
     test_ipsum_content(test_ipsum)
 
     for workindir, filename in tests_get_file_content:
-        print(f"Result for workindir:{workindir} filename: {filename}")
+        print(f"Result for workindir: {workindir} filename: {filename}")
         result = get_file_content(workindir, filename)
         print(result)
 
     for workingdir, filename, content in tests_write_file:
         print(
-            f"Result for workingdir:{workingdir} filename: {filename} content: {content}"
+            f"Result for workingdir: {workingdir} filename: {filename} content: {content}"
         )
         result = write_file(workingdir, filename, content)
         print(result)
 
     for workingdir, filename in tests_run_python:
-        print(f"Result for workingdir:{workingdir} filename: {filename}")
+        print(f"Result for workingdir: {workingdir} filename: {filename}")
         result = run_python_file(workingdir, filename)
         print(result)
 
