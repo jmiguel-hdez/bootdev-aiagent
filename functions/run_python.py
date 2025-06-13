@@ -7,7 +7,7 @@ import sys
 def run_python_file(working_directory, file_path):
     # if the `file_path` is outside the working directory, return a string with an error
     abs_working_dir = os.path.abspath(working_directory)
-    target_path = os.path.join(abs_working_dir, file_path)
+    target_path = os.path.abspath(os.path.join(abs_working_dir, file_path))
 
     if not target_path.startswith(abs_working_dir):
         return f'Error: Cannot execute "{file_path}" as it is outside the permitted working directory'

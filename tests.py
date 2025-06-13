@@ -43,6 +43,7 @@ if test_run_python:
         ("calculator", "../main.py"),
         # (this should return an error)
         ("calculator", "nonexistent.py"),
+        ("calculator", "nooutput.py"),
     ]
 
 
