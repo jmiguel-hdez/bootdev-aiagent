@@ -1,5 +1,6 @@
 from functions.get_files_info import get_files_info
 from functions.get_file_content import get_file_content
+from functions.write_file import write_file
 
 test_get_files_info = False
 tests_get_files_info = []
@@ -11,7 +12,7 @@ if test_get_files_info:
         ("calculator", "../"),
     ]
 
-test_content = True
+test_content = False
 test_ipsum = False
 tests_get_file_content = []
 if test_content:
@@ -19,6 +20,15 @@ if test_content:
         ("calculator", "main.py"),
         ("calculator", "pkg/calculator.py"),
         ("calculator", "/bin/cat"),
+    ]
+
+test_write_file = True
+tests_write_file = []
+if test_write_file:
+    tests_write_file = [
+        ("calculator", "lorem.txt", "wait, this isn't lorem ipsum"),
+        ("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet"),
+        ("calculator", "/tmp/temp.txt", "this should not be allowed"),
     ]
 
 
@@ -42,6 +52,13 @@ def test():
     for workindir, filename in tests_get_file_content:
         print(f"Result for workindir:{workindir} filename: {filename}")
         result = get_file_content(workindir, filename)
+        print(result)
+
+    for workingdir, filename, content in tests_write_file:
+        print(
+            f"Result for workingdir:{workingdir} filename: {filename} content: {content}"
+        )
+        result = write_file(workingdir, filename, content)
         print(result)
 
 
