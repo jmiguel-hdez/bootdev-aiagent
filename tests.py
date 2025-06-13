@@ -1,6 +1,7 @@
 from functions.get_files_info import get_files_info
 from functions.get_file_content import get_file_content
 from functions.write_file import write_file
+from functions.run_python import run_python_file
 
 test_get_files_info = False
 tests_get_files_info = []
@@ -72,6 +73,11 @@ def test():
             f"Result for workingdir:{workingdir} filename: {filename} content: {content}"
         )
         result = write_file(workingdir, filename, content)
+        print(result)
+
+    for workingdir, filename in tests_run_python:
+        print(f"Result for workingdir:{workingdir} filename: {filename}")
+        result = run_python_file(workingdir, filename)
         print(result)
 
 
