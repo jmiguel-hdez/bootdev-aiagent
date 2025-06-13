@@ -2,6 +2,24 @@ import os
 import subprocess
 import shlex
 import sys
+from google.genai import types
+
+
+def get_schema_run_python_file():
+    schema = types.FunctionDeclaration(
+        name="run_python_file",
+        description="Run the python file specified by file_path, constrained to the working directory.",
+        parameters=types.Schema(
+            type=types.Type.OBJECT,
+            properties={
+                "file_path": types.Schema(
+                    type=types.Type.STRING,
+                    description="The path to python file to run, relative to the working directory. It must be provided",
+                ),
+            },
+        ),
+    )
+    return schema
 
 
 def run_python_file(working_directory, file_path, args=None):

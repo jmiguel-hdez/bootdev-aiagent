@@ -1,5 +1,23 @@
 import os
 from config import MAX_CHARS
+from google.genai import types
+
+
+def get_schema_get_file_content():
+    schema = types.FunctionDeclaration(
+        name="get_file_content",
+        description="get text content of specified file, constrained to the working directory.",
+        parameters=types.Schema(
+            type=types.Type.OBJECT,
+            properties={
+                "file_path": types.Schema(
+                    type=types.Type.STRING,
+                    description="The file to get the content from, relative to the working directory. It must be provided",
+                ),
+            },
+        ),
+    )
+    return schema
 
 
 def get_file_content(working_directory, file_path):
