@@ -1,15 +1,15 @@
 import os
+
 from dotenv import load_dotenv
 from openai import OpenAI
 
 
-def main():
+def main() -> None:
     load_dotenv()
     api_key = os.environ.get("OPENROUTER_API_KEY")
 
     if not api_key:
-        raise RuntimeError("Key is not available")
-        print("Hello from bootdev-aiagent!")
+        raise RuntimeError("OPENROUTER_API_KEY enviroment variable not set")
 
     client = OpenAI(
         base_url="https://openrouter.ai/api/v1",
@@ -22,7 +22,10 @@ def main():
         }
     ]
     response = client.chat.completions.create(
-        messages=messages, model="openrouter/free")
+        model="openrouter/free",
+        messages=messages
+    )
+    print("Response:")
     print(response.choices[0].message.content)
 
 
