@@ -5,6 +5,21 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 
+def generate_content(client, messages):
+    response = client.chat.completions.create(
+        model="openrouter/free",
+        messages=messages
+    )
+    if response is None or response.usage is None:
+        raise RuntimeError("openrouter response came as None")
+
+    print(f"Prompt tokens: {response.usage.prompt_tokens}")
+    print(f"Response tokens: {response.usage.completion_tokens}")
+
+    print("Response:")
+    print(response.choices[0].message.content)
+
+
 def main() -> None:
     load_dotenv()
     api_key = os.environ.get("OPENROUTER_API_KEY")
@@ -27,18 +42,7 @@ def main() -> None:
             "content": args.user_prompt,
         }
     ]
-    response = client.chat.completions.create(
-        model="openrouter/free",
-        messages=messages
-    )
-    if response is None or response.usage is None:
-        raise RuntimeError("openrouter response came as None")
-
-    print(f"Prompt tokens: {response.usage.prompt_tokens}")
-    print(f"Response tokens: {response.usage.completion_tokens}")
-
-    print("Response:")
-    print(response.choices[0].message.content)
+    generate_content(client, messages)
 
 
 if __name__ == "__main__":
