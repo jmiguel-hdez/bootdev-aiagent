@@ -25,6 +25,12 @@ def main() -> None:
         model="openrouter/free",
         messages=messages
     )
+    if response is None or response.usage is None:
+        raise RuntimeError("openrouter response came as None")
+
+    print(f"Prompt tokens: {response.usage.prompt_tokens}")
+    print(f"Response tokens: {response.usage.completion_tokens}")
+
     print("Response:")
     print(response.choices[0].message.content)
 
