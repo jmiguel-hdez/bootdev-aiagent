@@ -12,8 +12,9 @@ def main() -> None:
     if not api_key:
         raise RuntimeError("OPENROUTER_API_KEY enviroment variable not set")
 
-    parser = argparse.ArgumentParser(description="AIAgent")
-    parser.add_argument("user_prompt", type=str, help="input prompt for agent")
+    parser = argparse.ArgumentParser(description="AI Code Assistant")
+    parser.add_argument("user_prompt", type=str,
+                        help="input prompt to send to the LLM")
     args = parser.parse_args()
 
     client = OpenAI(
@@ -23,7 +24,7 @@ def main() -> None:
     messages = [
         {
             "role": "user",
-            "content": f"{args.user_prompt}",
+            "content": args.user_prompt,
         }
     ]
     response = client.chat.completions.create(
